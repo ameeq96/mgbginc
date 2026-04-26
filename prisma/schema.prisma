@@ -1,0 +1,253 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  EDITOR
+}
+
+enum BookingStatus {
+  NEW
+  CONTACTED
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+model AdminUser {
+  id           String   @id @default(cuid()) @db.VarChar(191)
+  name         String   @db.VarChar(191)
+  email        String   @unique @db.VarChar(191)
+  passwordHash String   @db.VarChar(255)
+  role         UserRole @default(EDITOR)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SiteSetting {
+  id             String   @id @default("site") @db.VarChar(191)
+  logo           String?  @db.VarChar(2048)
+  siteName       String   @default("MGBG Inc.") @db.VarChar(191)
+  tagline        String?  @db.VarChar(255)
+  contactEmail   String?  @db.VarChar(191)
+  phone          String?  @db.VarChar(80)
+  address        String?  @db.Text
+  linkedin       String?  @db.VarChar(2048)
+  facebook       String?  @db.VarChar(2048)
+  instagram      String?  @db.VarChar(2048)
+  x              String?  @db.VarChar(2048)
+  youtube        String?  @db.VarChar(2048)
+  footerText     String?  @db.Text
+  seoTitle       String?  @db.VarChar(255)
+  seoDescription String?  @db.Text
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model HomeContent {
+  id                          String   @id @default("home") @db.VarChar(191)
+  heroTitle                   String   @db.VarChar(255)
+  heroSubtitle                String   @db.Text
+  heroImage                   String?  @db.VarChar(2048)
+  heroPrimaryText             String   @default("Book Free Consultation") @db.VarChar(120)
+  heroPrimaryLink             String   @default("/book-free-consultation") @db.VarChar(2048)
+  heroSecondaryText           String   @default("Explore Services") @db.VarChar(120)
+  heroSecondaryLink           String   @default("/services") @db.VarChar(2048)
+  servicesEnabled             Boolean  @default(true)
+  servicesHeading             String   @default("Advisory That Moves Work Forward") @db.VarChar(255)
+  servicesDescription         String?  @db.Text
+  projectsEnabled             Boolean  @default(true)
+  projectsHeading             String   @default("Selected Projects") @db.VarChar(255)
+  projectsDescription         String?  @db.Text
+  partnershipsEnabled         Boolean  @default(true)
+  partnershipsHeading         String   @default("Research, Development & Partnerships") @db.VarChar(255)
+  partnershipsDescription     String?  @db.Text
+  testimonialsEnabled         Boolean  @default(true)
+  testimonialsHeading         String   @default("Trusted By Leaders") @db.VarChar(255)
+  testimonialsDescription     String?  @db.Text
+  expertsEnabled              Boolean  @default(true)
+  expertsHeading              String   @default("Experts With Practical Range") @db.VarChar(255)
+  expertsDescription          String?  @db.Text
+  newsletterEnabled           Boolean  @default(true)
+  contactCtaHeading           String   @default("Need a strategic partner for your next stage?") @db.VarChar(255)
+  contactCtaDescription       String?  @db.Text
+  createdAt                   DateTime @default(now())
+  updatedAt                   DateTime @updatedAt
+}
+
+model Page {
+  id             String   @id @default(cuid()) @db.VarChar(191)
+  slug           String   @unique @db.VarChar(191)
+  title          String   @db.VarChar(255)
+  eyebrow        String?  @db.VarChar(120)
+  summary        String?  @db.Text
+  content        String   @db.LongText
+  heroImage      String?  @db.VarChar(2048)
+  seoTitle       String?  @db.VarChar(255)
+  seoDescription String?  @db.Text
+  published      Boolean  @default(true)
+  order          Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Service {
+  id               String   @id @default(cuid()) @db.VarChar(191)
+  title            String   @db.VarChar(255)
+  slug             String   @unique @db.VarChar(191)
+  icon             String?  @db.VarChar(120)
+  image            String?  @db.VarChar(2048)
+  shortDescription String   @db.Text
+  fullDescription  String   @db.LongText
+  order            Int      @default(0)
+  featured         Boolean  @default(false)
+  published        Boolean  @default(true)
+  seoTitle         String?  @db.VarChar(255)
+  seoDescription   String?  @db.Text
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Project {
+  id          String    @id @default(cuid()) @db.VarChar(191)
+  title       String    @db.VarChar(255)
+  slug        String    @unique @db.VarChar(191)
+  clientName  String?   @db.VarChar(255)
+  category    String?   @db.VarChar(120)
+  description String    @db.LongText
+  image       String?   @db.VarChar(2048)
+  date        DateTime?
+  status      String    @default("Active") @db.VarChar(80)
+  featured    Boolean   @default(false)
+  published   Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Partnership {
+  id              String   @id @default(cuid()) @db.VarChar(191)
+  partnerName     String   @db.VarChar(255)
+  slug            String   @unique @db.VarChar(191)
+  logo            String?  @db.VarChar(2048)
+  description     String   @db.LongText
+  country         String?  @db.VarChar(120)
+  partnershipType String?  @db.VarChar(191)
+  image           String?  @db.VarChar(2048)
+  files           String?  @db.Text
+  featured        Boolean  @default(false)
+  published       Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Expert {
+  id           String   @id @default(cuid()) @db.VarChar(191)
+  name         String   @db.VarChar(191)
+  position     String   @db.VarChar(191)
+  photo        String?  @db.VarChar(2048)
+  bio          String   @db.LongText
+  skills       String?  @db.Text
+  linkedin     String?  @db.VarChar(2048)
+  email        String?  @db.VarChar(191)
+  displayOrder Int      @default(0)
+  featured     Boolean  @default(false)
+  published    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model BlogPost {
+  id             String    @id @default(cuid()) @db.VarChar(191)
+  title          String    @db.VarChar(255)
+  slug           String    @unique @db.VarChar(191)
+  featuredImage  String?   @db.VarChar(2048)
+  category       String?   @db.VarChar(120)
+  tags           String?   @db.Text
+  excerpt        String?   @db.Text
+  content        String    @db.LongText
+  seoTitle       String?   @db.VarChar(255)
+  seoDescription String?   @db.Text
+  published      Boolean   @default(false)
+  publishedAt    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Testimonial {
+  id         String   @id @default(cuid()) @db.VarChar(191)
+  clientName String   @db.VarChar(191)
+  company    String?  @db.VarChar(191)
+  photo      String?  @db.VarChar(2048)
+  rating     Int      @default(5)
+  text       String   @db.Text
+  featured   Boolean  @default(false)
+  published  Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model UsefulLink {
+  id          String   @id @default(cuid()) @db.VarChar(191)
+  title       String   @db.VarChar(255)
+  url         String   @db.VarChar(2048)
+  category    String?  @db.VarChar(120)
+  description String?  @db.Text
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ConsultationRequest {
+  id              String        @id @default(cuid()) @db.VarChar(191)
+  name            String        @db.VarChar(191)
+  email           String        @db.VarChar(191)
+  phone           String?       @db.VarChar(80)
+  company         String?       @db.VarChar(191)
+  serviceInterest String?       @db.VarChar(191)
+  message         String        @db.Text
+  preferredAt     DateTime?
+  status          BookingStatus @default(NEW)
+  notes           String?       @db.Text
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid()) @db.VarChar(191)
+  name      String   @db.VarChar(191)
+  email     String   @db.VarChar(191)
+  phone     String?  @db.VarChar(80)
+  company   String?  @db.VarChar(191)
+  subject   String?  @db.VarChar(255)
+  message   String   @db.Text
+  replied   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid()) @db.VarChar(191)
+  email     String   @unique @db.VarChar(191)
+  name      String?  @db.VarChar(191)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MediaAsset {
+  id        String   @id @default(cuid()) @db.VarChar(191)
+  filename  String   @db.VarChar(255)
+  url       String   @db.VarChar(2048)
+  mimeType  String   @db.VarChar(120)
+  size      Int
+  altText   String?  @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
