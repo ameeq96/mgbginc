@@ -26,9 +26,9 @@ In **Vercel > Project > Settings > Environment Variables**, add these for Produc
 ```env
 DATABASE_URL="mysql://USER:PASSWORD@HOST:3306/DATABASE"
 JWT_SECRET="use-a-long-random-secret"
-ADMIN_EMAIL="admin@your-domain.com"
+ADMIN_EMAIL="admin@mgbginc.ca"
 ADMIN_PASSWORD="change-this-password"
-NEXT_PUBLIC_SITE_URL="https://your-vercel-domain.vercel.app"
+NEXT_PUBLIC_SITE_URL="https://mgbginc.ca"
 ```
 
 Use the same values for Preview if you want preview deployments to access the same admin database.
@@ -60,7 +60,7 @@ In Vercel:
 After deploy, open:
 
 ```text
-https://your-vercel-domain.vercel.app/admin/login
+https://mgbginc.ca/admin/login
 ```
 
 Log in with `ADMIN_EMAIL` and `ADMIN_PASSWORD`.

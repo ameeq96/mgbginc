@@ -48,7 +48,7 @@ function configuredAdminCredentials() {
   const password = process.env.ADMIN_PASSWORD;
   if (!password) return null;
   return {
-    email: (process.env.ADMIN_EMAIL || "admin@mgbginc.com").toLowerCase(),
+    email: (process.env.ADMIN_EMAIL || "admin@mgbginc.ca").toLowerCase(),
     password
   };
 }

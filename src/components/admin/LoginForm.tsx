@@ -46,7 +46,7 @@ export function LoginForm() {
             type="email"
             required
             className="focus-ring min-h-12 rounded-lg border border-slate-200 px-4 text-ink"
-            placeholder="admin@mgbginc.com"
+            placeholder="admin@mgbginc.ca"
           />
         </label>
         <label className="grid gap-2 text-sm font-medium text-slate-700">

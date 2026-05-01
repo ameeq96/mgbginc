@@ -28,7 +28,7 @@ export const fallbackSiteSettings: SiteSetting = {
   logo: "/mgbg-logo-mark.png",
   siteName: "MGBG Inc.",
   tagline: "Meta Genie Business Group",
-  contactEmail: "hello@mgbginc.com",
+  contactEmail: "hello@mgbginc.ca",
   phone: "+1 (555) 248-1120",
   address: "United States",
   linkedin: "https://www.linkedin.com",

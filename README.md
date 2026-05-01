@@ -56,7 +56,7 @@ Local site:
 
 Seeded admin:
 
-- Email: `admin@mgbginc.com`
+- Email: `admin@mgbginc.ca`
 - Password: `Admin@12345`
 
 Change `JWT_SECRET`, `ADMIN_PASSWORD`, and SMTP values before production deployment.

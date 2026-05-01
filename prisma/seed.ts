@@ -15,7 +15,7 @@ const researchImage =
 const agriTraitImage = "/agri-trait-gene-bank.png";
 
 async function main() {
-  const adminEmail = (process.env.ADMIN_EMAIL || "admin@mgbginc.com").toLowerCase();
+  const adminEmail = (process.env.ADMIN_EMAIL || "admin@mgbginc.ca").toLowerCase();
   const adminPassword = process.env.ADMIN_PASSWORD || "Admin@12345";
   const adminPasswordHash = await bcrypt.hash(adminPassword, 12);
   const shouldResetAdminPassword = process.env.RESET_ADMIN_PASSWORD === "true";
@@ -41,7 +41,7 @@ async function main() {
       logo: "/mgbg-logo-mark.png",
       siteName: "MGBG Inc.",
       tagline: "Meta Genie Business Group",
-      contactEmail: "hello@mgbginc.com",
+      contactEmail: "hello@mgbginc.ca",
       phone: "+1 (555) 248-1120",
       address: "United States",
       linkedin: "https://www.linkedin.com",

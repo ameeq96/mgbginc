@@ -63,10 +63,10 @@ Important production values:
 
 ```env
 NODE_ENV="production"
-NEXT_PUBLIC_SITE_URL="https://your-domain.com"
+NEXT_PUBLIC_SITE_URL="https://mgbginc.ca"
 DATABASE_URL="mysql://mgbg_user:strong_password@localhost:3306/mgbginc"
 JWT_SECRET="use-a-long-random-secret"
-ADMIN_EMAIL="admin@your-domain.com"
+ADMIN_EMAIL="admin@mgbginc.ca"
 ADMIN_PASSWORD="change-before-first-seed"
 RESET_ADMIN_PASSWORD="false"
 ```
@@ -98,11 +98,11 @@ For later content edits, use the admin dashboard. Do not run seed again unless y
 
 After restart, check:
 
-- Website: `https://your-domain.com`
-- Admin login: `https://your-domain.com/admin/login`
-- Health check: `https://your-domain.com/api/health`
-- Sitemap: `https://your-domain.com/sitemap.xml`
-- Robots: `https://your-domain.com/robots.txt`
+- Website: `https://mgbginc.ca`
+- Admin login: `https://mgbginc.ca/admin/login`
+- Health check: `https://mgbginc.ca/api/health`
+- Sitemap: `https://mgbginc.ca/sitemap.xml`
+- Robots: `https://mgbginc.ca/robots.txt`
 
 Seeded admin is controlled by `ADMIN_EMAIL` and `ADMIN_PASSWORD` during first seed.
 

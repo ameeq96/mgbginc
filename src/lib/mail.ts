@@ -29,7 +29,7 @@ export async function sendAdminNotification({ subject, html }: MailInput) {
 
   await transporter.sendMail({
     to,
-    from: process.env.SMTP_FROM || "MGBG Inc. <no-reply@mgbginc.com>",
+    from: process.env.SMTP_FROM || "MGBG Inc. <no-reply@mgbginc.ca>",
     subject,
     html
   });
