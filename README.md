@@ -79,4 +79,4 @@ Email notifications are sent only when SMTP variables are configured. Without SM
 
 The production build uses `next build --webpack` for compatibility with restricted build environments.
 
-For Plesk deployment, use [DEPLOY-PLESK.md](./DEPLOY-PLESK.md). The app includes a root `server.js` startup file, production environment example, MySQL setup commands, and a `/api/health` endpoint for live checks.
+For Plesk deployment, use [DEPLOY-PLESK.md](./DEPLOY-PLESK.md). For Vercel deployment, use [DEPLOY-VERCEL.md](./DEPLOY-VERCEL.md). The app includes a root `server.js` startup file, production environment example, MySQL setup commands, and a `/api/health` endpoint for live checks.

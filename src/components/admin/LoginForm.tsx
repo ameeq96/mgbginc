@@ -22,7 +22,7 @@ export function LoginForm() {
     const data = await response.json().catch(() => ({}));
     setLoading(false);
     if (!response.ok) {
-      setError(data.error || "Unable to sign in.");
+      setError(data.error || "Admin login failed.");
       return;
     }
     router.replace("/admin");

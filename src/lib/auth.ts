@@ -44,6 +44,32 @@ function sign(data: string) {
   return base64url(crypto.createHmac("sha256", secret()).update(data).digest());
 }
 
+function configuredAdminCredentials() {
+  const password = process.env.ADMIN_PASSWORD;
+  if (!password) return null;
+  return {
+    email: (process.env.ADMIN_EMAIL || "admin@mgbginc.com").toLowerCase(),
+    password
+  };
+}
+
+async function syncConfiguredAdmin(email: string, password: string) {
+  const configured = configuredAdminCredentials();
+  if (!configured || email !== configured.email || password !== configured.password) return null;
+
+  const passwordHash = await bcrypt.hash(configured.password, 12);
+  return prisma.adminUser.upsert({
+    where: { email: configured.email },
+    update: { passwordHash, role: "ADMIN" },
+    create: {
+      name: "MGBG Admin",
+      email: configured.email,
+      role: "ADMIN",
+      passwordHash
+    }
+  });
+}
+
 export function createSessionToken(user: Pick<AdminUser, "id" | "email" | "name" | "role">) {
   const header = base64url(JSON.stringify({ alg: "HS256", typ: "JWT" }));
   const payload = base64url(
@@ -119,12 +145,32 @@ export async function requireApiSession(roles?: UserRole[]) {
 }
 
 export async function authenticateAdmin(email: string, password: string) {
+  const normalizedEmail = email.toLowerCase();
+  const configured = configuredAdminCredentials();
+
+  if (configured?.email === normalizedEmail) {
+    if (password !== configured.password) return null;
+
+    const configuredUser = await prisma.adminUser.findUnique({
+      where: { email: normalizedEmail }
+    });
+    if (configuredUser) {
+      const valid = await bcrypt.compare(password, configuredUser.passwordHash);
+      if (valid && configuredUser.role === "ADMIN") return configuredUser;
+    }
+
+    return syncConfiguredAdmin(normalizedEmail, password);
+  }
+
   const user = await prisma.adminUser.findUnique({
-    where: { email: email.toLowerCase() }
+    where: { email: normalizedEmail }
   });
   if (!user) return null;
+
   const valid = await bcrypt.compare(password, user.passwordHash);
-  return valid ? user : null;
+  if (valid) return user;
+
+  return null;
 }
 
 export async function hashPassword(password: string) {
