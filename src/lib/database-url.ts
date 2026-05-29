@@ -46,7 +46,14 @@ export function ensureDatabaseUrl(env: DatabaseEnv = process.env) {
 
   if (databaseUrl) {
     env.DATABASE_URL = databaseUrl;
+    return databaseUrl;
   }
 
-  return databaseUrl;
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(
+      "Missing database environment variables. Set either DATABASE_URL or Laravel-style DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD."
+    );
+  }
+
+  return undefined;
 }
