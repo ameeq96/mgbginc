@@ -11,20 +11,30 @@ Use any MySQL provider that Vercel can reach, for example:
 - Railway
 - Plesk/MySQL with remote access enabled
 
-Copy the provider connection string in this format:
+Copy the provider details in Laravel-style fields:
 
 ```env
-DATABASE_URL="mysql://USER:PASSWORD@HOST:3306/DATABASE"
+DB_CONNECTION="mysql"
+DB_HOST="HOST"
+DB_PORT="3306"
+DB_DATABASE="DATABASE"
+DB_USERNAME="USER"
+DB_PASSWORD="PASSWORD"
 ```
 
-If the password contains `@`, `#`, `:`, `/`, or spaces, URL-encode it.
+Password special characters are OK in `DB_PASSWORD`.
 
 ## 2. Add Vercel Environment Variables
 
 In **Vercel > Project > Settings > Environment Variables**, add these for Production:
 
 ```env
-DATABASE_URL="mysql://USER:PASSWORD@HOST:3306/DATABASE"
+DB_CONNECTION="mysql"
+DB_HOST="HOST"
+DB_PORT="3306"
+DB_DATABASE="DATABASE"
+DB_USERNAME="USER"
+DB_PASSWORD="PASSWORD"
 JWT_SECRET="use-a-long-random-secret"
 ADMIN_EMAIL="admin@mgbginc.ca"
 ADMIN_PASSWORD="change-this-password"
@@ -35,7 +45,7 @@ Use the same values for Preview if you want preview deployments to access the sa
 
 ## 3. Create Database Tables
 
-After setting `DATABASE_URL`, run this once from your local terminal with the Vercel database URL in `.env`:
+After setting the database variables, run this once from your local terminal:
 
 ```bash
 npx prisma db push

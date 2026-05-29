@@ -4,9 +4,9 @@ import { PrismaClient } from "@prisma/client";
 import { ensureDatabaseUrl } from "../src/lib/database-url";
 import { slugify } from "../src/lib/format";
 
-ensureDatabaseUrl();
+const datasourceUrl = ensureDatabaseUrl();
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({ datasourceUrl });
 
 const heroImage =
   "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1800&q=85";

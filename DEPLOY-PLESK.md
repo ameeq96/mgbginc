@@ -51,8 +51,8 @@ DB_USERNAME="DATABASE_USER"
 DB_PASSWORD="DATABASE_PASSWORD"
 ```
 
-The app builds Prisma's internal `DATABASE_URL` from these values. Password
-special characters such as `@`, `#`, `:`, `/`, or spaces are OK in `DB_PASSWORD`.
+The app uses these `DB_*` values directly for Prisma. Password special
+characters such as `@`, `#`, `:`, `/`, or spaces are OK in `DB_PASSWORD`.
 
 ## 4. Configure Plesk Node.js
 
@@ -94,13 +94,12 @@ npm run build
 
 Then restart the Node.js application from Plesk.
 
-If Prisma prints `Environment variable not found: DATABASE_URL`, the command
-does not have access to your production database environment variables. Confirm
-that the `DB_*` values are set in **Plesk > Node.js > Environment variables**. If
-you are running commands from SSH/Terminal and Plesk does not inject those
-variables into the shell session, create a server-only `.env` file in the
-application root with the same values, or export the variables before running
-Prisma:
+If Prisma prints a missing database environment error, the command does not have
+access to your production database environment variables. Confirm that the
+`DB_*` values are set in **Plesk > Node.js > Environment variables**. If you are
+running commands from SSH/Terminal and Plesk does not inject those variables into
+the shell session, create a server-only `.env` file in the application root with
+the same values, or export the variables before running Prisma:
 
 ```bash
 export DB_CONNECTION='mysql'
