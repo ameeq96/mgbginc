@@ -13,8 +13,10 @@ export function buildDatabaseUrlFromEnv(env: DatabaseEnv = process.env) {
     throw new Error(`Missing database environment variables: ${missingKeys.join(", ")}`);
   }
 
-  const host = env.DB_HOST!;
-  const port = env.DB_PORT || "3306";
+  const rawHost = env.DB_HOST!;
+  const hostWithPort = rawHost.match(/^([^:]+):(\d+)$/);
+  const host = hostWithPort?.[1] || rawHost;
+  const port = env.DB_PORT || hostWithPort?.[2] || "3306";
   const database = encodeURIComponent(env.DB_DATABASE!);
   const username = encodeURIComponent(env.DB_USERNAME!);
   const password = encodeURIComponent(env.DB_PASSWORD || "");
