@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
+  url      = env("PRISMA_DB_URL")
 }
 
 enum UserRole {

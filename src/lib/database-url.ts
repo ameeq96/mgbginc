@@ -23,5 +23,8 @@ export function buildDatabaseUrlFromEnv(env: DatabaseEnv = process.env) {
 }
 
 export function ensureDatabaseUrl(env: DatabaseEnv = process.env) {
-  return buildDatabaseUrlFromEnv(env);
+  const databaseUrl = buildDatabaseUrlFromEnv(env);
+  env.PRISMA_DB_URL = databaseUrl;
+
+  return databaseUrl;
 }
