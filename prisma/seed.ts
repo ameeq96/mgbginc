@@ -1,6 +1,10 @@
+import "dotenv/config";
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
+import { ensureDatabaseUrl } from "../src/lib/database-url";
 import { slugify } from "../src/lib/format";
+
+ensureDatabaseUrl();
 
 const prisma = new PrismaClient();
 

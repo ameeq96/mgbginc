@@ -40,13 +40,19 @@ In Plesk:
 3. Create a database user with full access to that database.
 4. Open phpMyAdmin only to inspect data. Prisma will create tables.
 
-Use this URL format:
+Use Laravel-style database environment values:
 
 ```env
-DATABASE_URL="mysql://DATABASE_USER:DATABASE_PASSWORD@localhost:3306/DATABASE_NAME"
+DB_CONNECTION="mysql"
+DB_HOST="localhost"
+DB_PORT="3306"
+DB_DATABASE="DATABASE_NAME"
+DB_USERNAME="DATABASE_USER"
+DB_PASSWORD="DATABASE_PASSWORD"
 ```
 
-If the password contains special characters such as `@`, `#`, `:`, `/`, or spaces, URL-encode it.
+The app builds Prisma's internal `DATABASE_URL` from these values. Password
+special characters such as `@`, `#`, `:`, `/`, or spaces are OK in `DB_PASSWORD`.
 
 ## 4. Configure Plesk Node.js
 
@@ -64,7 +70,12 @@ Important production values:
 ```env
 NODE_ENV="production"
 NEXT_PUBLIC_SITE_URL="https://mgbginc.ca"
-DATABASE_URL="mysql://mgbg_user:strong_password@localhost:3306/mgbginc"
+DB_CONNECTION="mysql"
+DB_HOST="localhost"
+DB_PORT="3306"
+DB_DATABASE="mgbginc"
+DB_USERNAME="mgbg_user"
+DB_PASSWORD="strong_password"
 JWT_SECRET="use-a-long-random-secret"
 ADMIN_EMAIL="admin@mgbginc.ca"
 ADMIN_PASSWORD="change-before-first-seed"
@@ -82,6 +93,26 @@ npm run build
 ```
 
 Then restart the Node.js application from Plesk.
+
+If Prisma prints `Environment variable not found: DATABASE_URL`, the command
+does not have access to your production database environment variables. Confirm
+that the `DB_*` values are set in **Plesk > Node.js > Environment variables**. If
+you are running commands from SSH/Terminal and Plesk does not inject those
+variables into the shell session, create a server-only `.env` file in the
+application root with the same values, or export the variables before running
+Prisma:
+
+```bash
+export DB_CONNECTION='mysql'
+export DB_HOST='localhost'
+export DB_PORT='3306'
+export DB_DATABASE='DATABASE_NAME'
+export DB_USERNAME='DATABASE_USER'
+export DB_PASSWORD='DATABASE_PASSWORD'
+npm run db:deploy
+```
+
+Do not place the `.env` file inside the public document root.
 
 ## 6. Plesk Buttons
 

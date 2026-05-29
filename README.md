@@ -17,17 +17,25 @@ Modern dynamic website and admin dashboard for **MGBG Inc. / Meta Genie Business
 
 1. Open phpMyAdmin.
 2. Create a database named `mgbginc`.
-3. Open `.env` and set your MySQL connection:
+3. Open `.env` and set your MySQL connection, Laravel-style:
 
 ```env
-DATABASE_URL="mysql://root:your_mysql_password@localhost:3306/mgbginc"
+DB_CONNECTION="mysql"
+DB_HOST="localhost"
+DB_PORT="3306"
+DB_DATABASE="mgbginc"
+DB_USERNAME="root"
+DB_PASSWORD="your_mysql_password"
 ```
 
 Common local examples:
 
 ```env
-DATABASE_URL="mysql://root:@localhost:3306/mgbginc"
-DATABASE_URL="mysql://mgbg_user:mgbg_password@localhost:3306/mgbginc"
+DB_USERNAME="root"
+DB_PASSWORD=""
+
+DB_USERNAME="mgbg_user"
+DB_PASSWORD="mgbg_password"
 ```
 
 Then run:
@@ -39,7 +47,7 @@ npm run db:seed
 
 ## Local Setup
 
-After setting `DATABASE_URL`, run:
+After setting the database variables, run:
 
 ```bash
 npm install

@@ -27,7 +27,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Admin login failed.", error);
     return NextResponse.json(
-      { error: "Admin database is not ready. Check DATABASE_URL on Vercel and run Prisma db push." },
+      { error: "Admin database is not ready. Check database environment variables and run Prisma db push." },
       { status: 503 }
     );
   }
