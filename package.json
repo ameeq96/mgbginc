@@ -12,6 +12,7 @@
     "start": "node server.js",
     "next:start": "next start",
     "lint": "next lint",
+    "db:check": "tsx scripts/check-db.ts",
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
     "db:deploy": "prisma db push && prisma db seed",
