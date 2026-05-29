@@ -12,7 +12,9 @@ async function main() {
   console.log(`DB_PORT=${process.env.DB_PORT || "3306"}`);
   console.log(`DB_DATABASE=${process.env.DB_DATABASE || ""}`);
   console.log(`DB_USERNAME=${process.env.DB_USERNAME || ""}`);
-  console.log(`DB_PASSWORD=${process.env.DB_PASSWORD ? "[set]" : "[empty]"}`);
+  console.log(
+    `DB_PASSWORD=${process.env.DB_PASSWORD ? `[set, length=${process.env.DB_PASSWORD.length}]` : "[empty]"}`
+  );
 
   await prisma.$queryRaw`SELECT 1`;
   console.log("Database connection OK.");
